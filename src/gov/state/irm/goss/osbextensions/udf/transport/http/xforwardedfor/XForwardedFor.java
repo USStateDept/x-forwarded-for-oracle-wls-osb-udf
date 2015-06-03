@@ -18,6 +18,11 @@ public class XForwardedFor
 	public static final int HEADER_PREFIX_LEN = HEADER_PREFIX.length();
 	public static final String NAMESPACE="http://goss.irm.state.gov/xquery/xquery-functions";
 	
+	/**
+	 * Extracts a header's value.
+	 * @param header
+	 * @return
+	 */
 	public static String getValueFromHeader(String header)
 	{
 		if (header==null) return null;
@@ -38,11 +43,21 @@ public class XForwardedFor
 	}
 */
 	
+	/**
+	 * Extracts the most recent client from a single header.
+	 * @param header
+	 * @return null on failure
+	 */
 	public static String getLastClientFromHeader(String header)
 	{
 		return getLastClientFromHeaders(new String[]{header});
 	}
 	
+	/**
+	 * Extracts the most recent client from multiple headers.
+	 * @return null on failure
+	 * @param headers
+	 */
 	public static String getLastClientFromHeaders(String[] headers)
 	{
 		String[] vals = getClientsFromHeaders(headers);
@@ -50,11 +65,21 @@ public class XForwardedFor
 		return vals[vals.length-1];
 	}
 	
+	/**
+	 * Extracts the originating client from a single header.
+	 * @param header
+	 * @return null on failure
+	 */
 	public static String getFirstClientFromHeader(String header)
 	{
 		return getFirstClientFromHeaders(new String[]{header});
 	}
 	
+	/**
+	 * Extracts the originating client from multiple headers.
+	 * @param headers
+	 * @return null on failure
+	 */
 	public static String getFirstClientFromHeaders(String[] headers)
 	{
 		String[] vals = getClientsFromHeaders(headers);
