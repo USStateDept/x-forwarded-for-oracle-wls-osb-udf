@@ -1,0 +1,2 @@
+following Oracle docs: https://docs.oracle.com/cd/E23943_01/dev.1111/e15866/custom_xpath.htm
+
