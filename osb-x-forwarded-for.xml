@@ -2,6 +2,9 @@
 <xpf:xpathFunctions xmlns:xpf="http://www.bea.com/wli/sb/xpath/config">
     
     <xpf:category id="%OSB_FUNCTIONS%">
+     <xpf:group id="HTTP Headers">
+     
+<!--
         <xpf:function>
             <xpf:name>getValueFromHeader</xpf:name>
             <xpf:comment>Extracts a header's value.</xpf:comment>
@@ -12,7 +15,7 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+-->    
         <xpf:function>
             <xpf:name>getLastClientFromHeader</xpf:name>
             <xpf:comment>Extracts the most recent client from a single header.</xpf:comment>
@@ -23,7 +26,18 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+
+        <xpf:function>
+            <xpf:name>getLastClientFromHeaderValueDefault</xpf:name>
+            <xpf:comment>Extracts the most recent client from a single header value or returns the default value.</xpf:comment>
+            <xpf:namespaceURI>http://goss.irm.state.gov/xquery/xquery-functions</xpf:namespaceURI>
+            <xpf:className>gov.state.irm.goss.osbextensions.udf.transport.http.xforwardedfor.XForwardedFor</xpf:className>
+            <xpf:method>java.lang.String getLastClientFromHeaderValueDefault(java.lang.String)</xpf:method>
+            <xpf:isDeterministic>true</xpf:isDeterministic>
+            <xpf:scope>Pipeline</xpf:scope>
+            <xpf:scope>SplitJoin</xpf:scope>
+        </xpf:function>
+<!--    
         <xpf:function>
             <xpf:name>getLastClientFromHeaders</xpf:name>
             <xpf:comment>Extracts the most recent client from multiple headers.</xpf:comment>
@@ -34,7 +48,7 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+-->    
         <xpf:function>
             <xpf:name>getFirstClientFromHeader</xpf:name>
             <xpf:comment>Extracts the originating client from a single header.</xpf:comment>
@@ -45,7 +59,18 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+
+        <xpf:function>
+            <xpf:name>getFirstClientFromHeaderValueDefault</xpf:name>
+            <xpf:comment>Extracts the originating client from a single header's value or returns the default value.</xpf:comment>
+            <xpf:namespaceURI>http://goss.irm.state.gov/xquery/xquery-functions</xpf:namespaceURI>
+            <xpf:className>gov.state.irm.goss.osbextensions.udf.transport.http.xforwardedfor.XForwardedFor</xpf:className>
+            <xpf:method>java.lang.String getFirstClientFromHeaderValueDefault(java.lang.String,java.lang.String)</xpf:method>
+            <xpf:isDeterministic>true</xpf:isDeterministic>
+            <xpf:scope>Pipeline</xpf:scope>
+            <xpf:scope>SplitJoin</xpf:scope>
+        </xpf:function>
+<!--    
         <xpf:function>
             <xpf:name>getFirstClientFromHeaders</xpf:name>
             <xpf:comment>Extracts the originating client from multiple headers.</xpf:comment>
@@ -67,7 +92,7 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+-->    
         <xpf:function>
             <xpf:name>getClientsFromHeader</xpf:name>
             <xpf:comment>Returns all the host / proxies with client first from a single header.</xpf:comment>
@@ -78,6 +103,7 @@
             <xpf:scope>Pipeline</xpf:scope>
             <xpf:scope>SplitJoin</xpf:scope>
         </xpf:function>
-    
+        
+     </xpf:group>
     </xpf:category>
 </xpf:xpathFunctions>

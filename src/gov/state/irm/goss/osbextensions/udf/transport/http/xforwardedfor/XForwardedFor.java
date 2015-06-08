@@ -54,6 +54,28 @@ public class XForwardedFor
 	}
 	
 	/**
+	 * Extracts the most recent client from a single header value.
+	 * @param header
+	 * @return null on failure
+	 */
+	public static String getLastClientFromHeaderValue(String value)
+	{
+		return getLastClientFromHeadersValues(new String[]{value});
+	}
+	
+	/**
+	 * Extracts the most recent client from a single header value or returns the default value.
+	 * @param header
+	 * @return null on failure
+	 */
+	public static String getLastClientFromHeaderValueDefault(String value, String def)
+	{
+		String res = getLastClientFromHeadersValues(new String[]{value});
+		if (res==null || res.isEmpty()) return def;
+		return res;
+	}
+	
+	/**
 	 * Extracts the most recent client from multiple headers.
 	 * @return null on failure
 	 * @param headers
@@ -61,6 +83,18 @@ public class XForwardedFor
 	public static String getLastClientFromHeaders(String[] headers)
 	{
 		String[] vals = getClientsFromHeaders(headers);
+		if (vals==null || vals.length==0) return null;
+		return vals[vals.length-1];
+	}
+	
+	/**
+	 * Extracts the most recent client from multiple headers' values.
+	 * @return null on failure
+	 * @param headers
+	 */
+	public static String getLastClientFromHeadersValues(String[] values)
+	{
+		String[] vals = getClientsFromHeadersValues(values);
 		if (vals==null || vals.length==0) return null;
 		return vals[vals.length-1];
 	}
@@ -76,6 +110,28 @@ public class XForwardedFor
 	}
 	
 	/**
+	 * Extracts the originating client from a single header's value.
+	 * @param header
+	 * @return null on failure
+	 */
+	public static String getFirstClientFromHeaderValue(String value)
+	{
+		return getFirstClientFromHeadersValues(new String[]{value});
+	}
+	
+	/**
+	 * Extracts the originating client from a single header's value or returns the default value.
+	 * @param header
+	 * @return null on failure
+	 */
+	public static String getFirstClientFromHeaderValueDefault(String value, String def)
+	{
+		String res = getFirstClientFromHeadersValues(new String[]{value});
+		if (res==null || res.isEmpty()) return def;
+		return res;
+	}
+	
+	/**
 	 * Extracts the originating client from multiple headers.
 	 * @param headers
 	 * @return null on failure
@@ -83,6 +139,18 @@ public class XForwardedFor
 	public static String getFirstClientFromHeaders(String[] headers)
 	{
 		String[] vals = getClientsFromHeaders(headers);
+		if (vals==null || vals.length==0) return null;
+		return vals[0];
+	}
+	
+	/**
+	 * Extracts the originating client from multiple headers' values.
+	 * @param headers
+	 * @return null on failure
+	 */
+	public static String getFirstClientFromHeadersValues(String[] values)
+	{
+		String[] vals = getClientsFromHeadersValues(values);
 		if (vals==null || vals.length==0) return null;
 		return vals[0];
 	}
@@ -106,16 +174,44 @@ public class XForwardedFor
 	}
 	
 	/**
+	 * Returns all the host / proxies with client first from an array of headers' values.
+	 * @param headers
+	 * @return
+	 */
+	public static String[] getClientsFromHeadersValues(String[] values)
+	{
+		ArrayList<String> res=new ArrayList<String>();
+
+		for (String value:values)
+		{
+			String[] clients = getClientsFromHeaderValue(value);
+			for (String client:clients) res.add(client);
+		}
+		
+		return res.toArray(new String[res.size()]);
+	}
+	
+	/**
 	 * Returns all the host / proxies with client first from a single header.
 	 * @param header
 	 * @return
 	 */
 	public static String[] getClientsFromHeader(String header)
 	{
-		ArrayList<String> res=new ArrayList<String>();
-
 		String value=getValueFromHeader(header);
 		
+		return getClientsFromHeaderValue(value);
+	}
+
+	/**
+	 * Returns all the host / proxies with client first from a single header's value.
+	 * @param header
+	 * @return
+	 */
+	public static String[] getClientsFromHeaderValue(String value)
+	{
+		ArrayList<String> res=new ArrayList<String>();
+
 		if (value!=null)
 		{
 			String[] values = value.split(",");

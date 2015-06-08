@@ -1,0 +1,24 @@
+Create a proxy service as an "Any XML Service" and ("Get All Headers" or add "X-Forwarded-For" to the list of headers).
+In the response pipeline stage replace the node contents of "body" xpath node "." by this expression:
+
+ 
+CUST-FN:getFirstClientFromHeaderValueDefault
+(
+ $inbound/ctx:transport/ctx:request/tp:headers/tp:user-header[@name="X-Forwarded-For"]/@value,
+ $inbound/ctx:transport/ctx:request/http:client-address
+)
+
+
+Note: CUST-FN will be assigned by the Middleware and imported automatically. The name will be giberish, like 
+"xqufg", but it will be mapped to the namespace URI (http://goss.irm.state.gov/xquery/xquery-functions) already.
+
+
+You may then test it with:
+
+curl -v -X POST http://127.0.0.1:8080/test-osb-project/xtest -d '<xml/>' -H 'X-Forwarded-For: orig-client,proxy1,10.0.0.1' -H 'X-Forwarded-For: OurLocalProxy'
+
+and
+
+curl -v -X POST http://127.0.0.1:8080/test-osb-project/xtest -d '<xml/>' 
+
+
