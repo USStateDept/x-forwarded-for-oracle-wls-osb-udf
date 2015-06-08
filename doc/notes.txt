@@ -1,2 +1,6 @@
-following Oracle docs: https://docs.oracle.com/cd/E23943_01/dev.1111/e15866/custom_xpath.htm
+following Oracle docs: 
+
+11g: https://docs.oracle.com/cd/E23943_01/dev.1111/e15866/custom_xpath.htm
+
+12c: https://docs.oracle.com/middleware/1213/osb/develop/osb-xpath-functions.htm
 
