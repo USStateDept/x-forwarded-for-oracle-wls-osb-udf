@@ -1,0 +1,8 @@
+Extract the archive, with paths, to OSB_HOME, on each OSB server. Restart each OSB server after 
+deployment.
+
+There should be 3 files added (or updated) on each server.
+
+$OSB_HOME/config/xpath-functions/osb-x-forwarded-for.jar
+$OSB_HOME/config/xpath-functions/osb-x-forwarded-for.properties
+$OSB_HOME/config/xpath-functions/osb-x-forwarded-for.xml
